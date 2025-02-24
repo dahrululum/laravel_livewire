@@ -18,6 +18,8 @@ class Employee extends Component
     public $employee_id;
     public $katakunci;
     public $employee_selected_id = [];
+    public $sortColumn = 'nama' ;
+    public $sortDirection = 'asc';
 
 
     
@@ -28,10 +30,10 @@ class Employee extends Component
             $data= ModelsEmployee::where('nama','like','%'.$this->katakunci.'%')
                 ->orwhere('email','like','%'.$this->katakunci.'%')
                 ->orwhere('alamat','like','%'.$this->katakunci.'%')
-                ->orderby('nama','asc')
+                ->orderby($this->sortColumn,$this->sortDirection)
                 ->paginate(10);
         }else{
-            $data= ModelsEmployee::orderby('nama','asc')->paginate(3);
+            $data= ModelsEmployee::orderby($this->sortColumn,$this->sortDirection)->paginate(5);
         }
 
 
@@ -113,5 +115,9 @@ class Employee extends Component
 
     }
 
+    public function sort($columnName){
+        $this->sortColumn = $columnName;
+        $this->sortDirection = $this->sortDirection == 'asc' ? 'desc' : 'desc';
+    }
 
 }

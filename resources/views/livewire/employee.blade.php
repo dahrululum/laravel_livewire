@@ -67,14 +67,14 @@
               @endphp
               <a wire:click="deleteSelected('')" wire:confirm="Apakah anda yakin akan menghapus {{ count($employee_selected_id) }} data ini?"  class="btn btn-danger btn-sm my-2">Delete {{ count($employee_selected_id) }} data</a>
           @endif
-            <table class="table table-striped">
+            <table class="table table-striped table-sortable">
                 <thead>
                     <tr>
                         <th class="col-md-1">#</th>
                         <th class="col-md-1">No</th>
-                        <th class="col-md-4">Nama</th>
-                        <th class="col-md-3">Email</th>
-                        <th class="col-md-2">Alamat</th>
+                        <th class="col-md-4 sort @if($sortColumn=='nama') {{ $sortDirection }}  @endif" wire:click="sort('nama')">Nama</th>
+                        <th class="col-md-3 sort @if($sortColumn=='email') {{ $sortDirection }}  @endif" wire:click="sort('email')">Email</th>
+                        <th class="col-md-2 sort @if($sortColumn=='alamat') {{ $sortDirection }}  @endif" wire:click="sort('alamat')">Alamat</th>
                         <th class="col-md-2">Aksi</th>
                     </tr>
                 </thead>
@@ -86,7 +86,7 @@
                         <td> <input type="checkbox" wire:key="{{ $item->id }}" value="{{ $item->id }}" name="" id="" wire:model.live="employee_selected_id"></td>
                         <td>{{ $dataEmployee->firstItem() + $loop->index }}</td>
                         <td>{{ $item->nama }}</td>
-                        <td>{{ $item->email }}</td>
+                        <td >{{ $item->email }}</td>
                         <td>{{ $item->alamat }}</td>
                         <td>
                             <a wire:click="edit({{$item->id}})"   class="btn btn-warning btn-sm">Edit</a>

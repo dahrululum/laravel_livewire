@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Livewire\Counter;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/students', [StudentController::class,'index']);
 
 Route::get('/counter', Counter::class);
 
